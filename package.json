@@ -1,0 +1,26 @@
+{
+  "name": "oliviateacher",
+  "version": "1.0.0",
+  "description": "Olivia Lenssens – Ballet Teacher website for pre-professional students in Lausanne",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "ballet",
+    "teacher",
+    "lausanne",
+    "dance"
+  ],
+  "author": "Olivia Lenssens",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
