@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     '/portfolio-media',
     express.static(
-        path.join(__dirname, '../oliviaportfolio-main/wp-content/uploads/2024/11')
+        path.join(__dirname, './media/portfolio')
     )
 );
 
