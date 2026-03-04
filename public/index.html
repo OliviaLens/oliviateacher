@@ -240,7 +240,8 @@
                     <p>She continued her dance career internationally — with Alberta Ballet II in Canada, then at the
                         North Bohemian Theatre in the Czech Republic, where she performed soloist roles in the major
                         ballets of the classical repertoire. In 2019, she joined the Vanemuine Theatre in Estonia as a
-                        soloist, notably portraying Juliet in <em>Romeo and Juliet</em>, Maria in <em>The Nutcracker</em>, and principal roles in <em>Swan Lake</em>.</p>
+                        soloist, notably portraying Juliet in <em>Romeo and Juliet</em>, Maria in <em>The
+                            Nutcracker</em>, and principal roles in <em>Swan Lake</em>.</p>
 
                     <p>In 2025 she earned her <strong>Diplôme d'État de Professeur de Danse Classique</strong> at the
                         Centre National de la Danse in Pantin, Paris, and joined the AFJD teaching staff in Lausanne —
@@ -341,7 +342,8 @@
 
                 <div class="diplome-block reveal">
                     <p class="section-label">Recognised Qualification</p>
-                    <h3 class="section-title" style="font-size:clamp(22px,2.5vw,32px);">Diplôme d'État de Professeur de Danse Classique</h3>
+                    <h3 class="section-title" style="font-size:clamp(22px,2.5vw,32px);">Diplôme d'État de Professeur de
+                        Danse Classique</h3>
 
                     <p>The French National Diploma (State Diploma) is the highest professional teaching qualification
                         in classical dance, issued by the French Ministry of Culture. It is earned through rigorous
@@ -476,7 +478,8 @@
                             also helped me a lot with several things — exercises that were difficult for me, advice and
                             ideas for stretches. These last two weeks with you motivated me to work more and more
                             consistently. I now feel more motivated and determined to strengthen my strengths!</p>
-                        <p>Thank you, and I truly hope to see you again as these classes really made all the girls happy.</p>
+                        <p>Thank you, and I truly hope to see you again as these classes really made all the girls
+                            happy.</p>
                         <div class="testimonial-author">
                             <strong>Lorette</strong>
                             <span>Student · France</span>
@@ -662,6 +665,53 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
     <script src="/js/main.js" defer></script>
+
+    <!-- chat-app Integration sample -->
+
+    <iframe id="chatbot" src="https://chat.Not-a-bot.ai?color=432812&mode=bubble&agent=Ballet Teacher" allowfullscreen
+        style="position: fixed; bottom: 0; right: 0; width: 360px; height: 640px;" frameBorder="0"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms" loading="eager">
+    </iframe>
+
+    <script>
+
+        window.addEventListener('message', (event) => {
+            if (event.data?.type === 'resize' && event.data.height && event.data.width) {
+                const iframe = document.getElementById('chatbot');
+                iframe.style.height = event.data.height;
+                iframe.style.width = event.data.width;
+            }
+        }
+        );
+
+        window.addEventListener('message', function (event) {
+            if (event.data && event.data.type === 'REQUEST_WIDTH') {
+                event.source.postMessage({
+                    type: 'WIDTH_UPDATE',
+                    width: window.innerWidth
+                }, '*');
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            const iframes = document.getElementsByTagName('iframe');
+            for (let i = 0; i < iframes.length; i++) {
+                iframes[i].contentWindow.postMessage({
+                    type: 'WIDTH_UPDATE',
+                    width: window.innerWidth
+                }, '*');
+            }
+        });
+
+        window.addEventListener('load', (event) => {
+            let parentUrl = window.location.href;
+            console.log('Passing the hosting parentUrl page to the chat-app: ', parentUrl);
+            let iframeUrl = 'https://chat.not-a-bot.ai?color=432812&mode=bubble&agent=Ballet Teacher&parentUrl=' + encodeURIComponent(parentUrl);
+            document.getElementById('chatbot').src = iframeUrl;
+        });
+
+    </script>
+
 </body>
 
 </html>
