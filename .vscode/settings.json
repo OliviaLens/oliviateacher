@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c476af32-5c52-4fdb-8470-d089bf32a351/resourceGroups/olivia/providers/Microsoft.Web/sites/olivialenssens",
+    "appService.deploySubpath": "."
+}
