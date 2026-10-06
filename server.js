@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const { messages: localeMessages, localeCodes } = require('./public/js/i18n');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,56 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+function escapeHtmlAttribute(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;');
+}
+
+function renderLocalePage(locale) {
+    let html = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
+    const translations = localeMessages[locale];
+    const translate = key => translations[key] || localeMessages.en[key] || key;
+
+    html = html.replace(/(<([a-z][\w:-]*)\b(?=[^>]*\bdata-i18n="([^"]+)")[^>]*>)[\s\S]*?(<\/\2>)/gi,
+        (_match, openingTag, tagName, key, closingTag) => `${openingTag}${translate(key)}${closingTag}`);
+
+    html = html.replace(/<[^>]+>/g, tag => {
+        const contentKey = tag.match(/\bdata-i18n-content="([^"]+)"/)?.[1];
+        if (!contentKey) return tag;
+        const content = escapeHtmlAttribute(translate(contentKey));
+        return tag.replace(/\bcontent="[^"]*"/, `content="${content}"`);
+    });
+
+    [
+        ['aria', 'aria-label'],
+        ['alt', 'alt'],
+        ['placeholder', 'placeholder'],
+    ].forEach(([markerName, attributeName]) => {
+        const markerAttribute = `data-i18n-${markerName}`;
+        html = html.replace(/<[^>]+>/g, tag => {
+            const key = tag.match(new RegExp(`\\b${markerAttribute}="([^"]+)"`))?.[1];
+            if (!key) return tag;
+            return tag.replace(new RegExp(`\\b${attributeName}="[^"]*"`), `${attributeName}="${escapeHtmlAttribute(translate(key))}"`);
+        });
+    });
+
+    html = html.replace('<html lang="en">', `<html lang="${localeCodes[locale]}">`);
+
+    const canonicalPath = locale === 'en' ? '/' : `/${locale}/`;
+    const alternateLinks = Object.entries(localeCodes)
+        .map(([code, language]) => `<link rel="alternate" hreflang="${language}" href="${code === 'en' ? '/' : `/${code}/`}">`)
+        .join('\n    ');
+    html = html.replace('</head>', `<link rel="canonical" href="${canonicalPath}">\n    ${alternateLinks}\n    <link rel="alternate" hreflang="x-default" href="/">\n</head>`);
+    return html;
+}
+
+// Serve translated, search-indexable HTML at each supported locale URL.
+app.get('/:locale(en|fr|de|nl|et|cs)', (req, res) => {
+    res.type('html').send(renderLocalePage(req.params.locale));
+});
 
 // Serve portfolio media (photos & videos) from the previous website
 app.use(

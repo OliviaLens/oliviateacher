@@ -1,6 +1,8 @@
 /* Olivia Lenssens – Ballet Teacher | main.js */
 
 document.addEventListener('DOMContentLoaded', () => {
+    const i18n = window.siteI18n;
+    const t = (key) => i18n ? i18n.translate(key) : key;
 
     /* ── Navbar scroll behaviour ── */
     const navbar = document.getElementById('navbar');
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dot = document.createElement('button');
             dot.className = 'carousel-dot' + (i === carouselIndex ? ' active' : '');
             if (isVideo(src)) dot.classList.add('carousel-dot--video');
-            dot.setAttribute('aria-label', `${isVideo(src) ? 'Video' : 'Photo'} ${i + 1} of ${carouselImages.length}`);
+            dot.setAttribute('aria-label', `${t(isVideo(src) ? 'gallery.video' : 'gallery.photo')} ${i + 1} / ${carouselImages.length}`);
             dot.addEventListener('click', () => goToCarousel(i));
             carouselDots.appendChild(dot);
         });
@@ -205,15 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatCount(files) {
         const photos = files.filter(f => !VIDEO_EXT_RE.test(f)).length;
         const videos = files.filter(f => VIDEO_EXT_RE.test(f)).length;
-        const parts = [];
-        if (photos) parts.push(`${photos} photo${photos !== 1 ? 's' : ''}`);
-        if (videos) parts.push(`${videos} video${videos !== 1 ? 's' : ''}`);
-        return parts.join(' · ');
+        return i18n ? i18n.formatMediaCount(photos, videos) : `${photos} photos · ${videos} videos`;
     }
 
     document.querySelectorAll('[data-media-folder]').forEach(async (item) => {
         const folder = item.getAttribute('data-media-folder');
-        const title = item.getAttribute('data-carousel-title') || '';
+        const title = t(item.getAttribute('data-carousel-title-key')) ||
+            item.getAttribute('data-carousel-title') || '';
 
         let files = [];
         try {
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update accessible label with real counts
         if (files.length) {
-            item.setAttribute('aria-label', `${title} – ${formatCount(files)}, click to browse`);
+            item.setAttribute('aria-label', `${title} – ${formatCount(files)}, ${t('gallery.browse')}`);
         }
 
         item.addEventListener('click', () => {
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const submitBtn = form.querySelector('[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending…';
+            submitBtn.textContent = t('form.sending');
             statusEl.style.display = 'none';
             statusEl.className = 'form-status';
 
@@ -281,20 +281,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await resp.json();
 
                 if (result.success) {
-                    statusEl.textContent = 'Thank you! Your message has been received. Olivia will be in touch shortly.';
+                    statusEl.textContent = t('form.success');
                     statusEl.className = 'form-status success';
                     form.reset();
                 } else {
                     throw new Error(result.error || 'Unknown error');
                 }
             } catch (err) {
-                statusEl.textContent = `Something went wrong. Please email directly: Olivia.Lenssens@gmail.com`;
+                statusEl.textContent = t('form.error');
                 statusEl.className = 'form-status error';
                 console.error(err);
             } finally {
                 statusEl.style.display = 'block';
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
+                submitBtn.textContent = t('form.send');
             }
         });
     }
