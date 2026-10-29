@@ -58,6 +58,8 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - Deployment package `.azure/deploy-package.zip` contained app, package manifests, public assets, and media; excluded `.git`, `node_modules`, and `.azure`. It was removed after successful deployment.
 
 ## All validation checks pass
+- Current update: deploy the Pilates section and both Calendly embeds to the same existing web app; retain its subscription, runtime, configuration, and media.
+- Current AZCLI validation: verify CLI authentication and existing target, syntax and local HTTP behavior, and deployment ZIP integrity. Infrastructure build, validate, what-if, Docker, and new-resource policy checks are not applicable to this code-only update.
 - [x] Confirm authenticated Azure CLI subscription is `bernard` and target remains `olivialenssens` in resource group `olivia`.
 - [x] Confirm the deployment ZIP contains required runtime files and is not accidentally bundling local dependencies, Git metadata, or deployment-plan artifacts.
 - [x] Run local syntax, whitespace, and HTTP smoke checks for English and all five translated routes.
@@ -66,6 +68,14 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - [x] Policy, quota, and RBAC/IaC checks: not applicable; no Azure resources, policies, role assignments, or infrastructure are being changed.
 
 ## 7. Validation Proof
+Pilates update validation completed at `2026-10-29T08:59:54Z`.
+- Azure CLI `2.68.0`; `az account show` confirms the existing `bernard` subscription.
+- `az webapp show` confirms `olivialenssens` in resource group `olivia` is Running, with the expected custom and Azure hostnames; `az webapp config show` confirms `NODE|22-lts`.
+- `node --check server.js`, `node --check public/js/main.js`, `node --check public/js/i18n.js`, and `git diff --check`: passed.
+- `PORT=3188 node server.js` plus HTTP smoke tests: all six locale routes returned HTTP 200 and contained the Pilates section and both booking embeds. CSS and both JavaScript assets returned HTTP 200.
+- `zip` packaged explicit runtime files, `public/`, and `media/`; `unzip -tq` passed. Archive is approximately 432 MiB and excludes Git metadata, dependencies, local deployment artifacts, and `.DS_Store`.
+- No build script or container exists; startup and HTTP tests verify this directly served Node application. No infrastructure, resource configuration, RBAC assignments, capacity, or policy changes are requested.
+
 Validation completed at `2026-10-06T13:55:29Z`.
 - `az account show`: confirmed subscription `bernard` (`c476af32-5c52-4fdb-8470-d089bf32a351`).
 - `az webapp show --name olivialenssens --resource-group olivia`: target exists, is Running in West Europe, and has the expected custom/Azure hostnames.
@@ -78,6 +88,12 @@ Validation completed at `2026-10-06T13:55:29Z`.
 - Azure resource provisioning/policy/quota checks: not applicable; deployment targets an existing App Service and provisions no resources.
 
 ## Deployment Proof
+- Pilates update deployed and verified at `2026-10-29T09:06:49Z` using `az webapp deploy --type zip` to `olivialenssens` in resource group `olivia`. Azure reported build successful, site started successfully, and deployment completed successfully.
+- Both `https://olivia.lenssens.net` and `https://olivialenssens.azurewebsites.net` returned HTTP 200 on all six language routes, with the Pilates navigation item, supplied prices, and both Calendly embeds.
+- Live root HTML and CSS/JavaScript assets match local SHA-256 hashes on both hostnames; portfolio media remains available. App Service state is Running.
+- Browser verification on the production custom domain opened both embedded calendars and confirmed the private and group event titles and their 45-minute durations. No booking was submitted.
+- No infrastructure, runtime, app settings, or access assignments were changed.
+
 - Deployed at `2026-10-06T14:01:19Z` to existing app `olivialenssens`; Azure CLI reported `RuntimeSuccessful`, 1 successful instance, and no failed instances.
 - App Service remains Running in West Europe.
 - Both `https://olivia.lenssens.net` and `https://olivialenssens.azurewebsites.net` returned HTTP 200 for `/`, `/fr/`, `/de/`, `/nl/`, `/et/`, and `/cs/`; rendered language tags, localized titles, and corresponding flag labels were verified.
