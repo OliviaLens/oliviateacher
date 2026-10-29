@@ -58,7 +58,7 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - Deployment package `.azure/deploy-package.zip` contained app, package manifests, public assets, and media; excluded `.git`, `node_modules`, and `.azure`. It was removed after successful deployment.
 
 ## All validation checks pass
-- Current update: deploy the Pilates section and both Calendly embeds to the same existing web app; retain its subscription, runtime, configuration, and media.
+- Current update: deploy all Pilates translations, the reordered course options, and the studio photo to the same existing web app; retain its subscription, runtime, configuration, and media.
 - Current AZCLI validation: verify CLI authentication and existing target, syntax and local HTTP behavior, and deployment ZIP integrity. Infrastructure build, validate, what-if, Docker, and new-resource policy checks are not applicable to this code-only update.
 - [x] Confirm authenticated Azure CLI subscription is `bernard` and target remains `olivialenssens` in resource group `olivia`.
 - [x] Confirm the deployment ZIP contains required runtime files and is not accidentally bundling local dependencies, Git metadata, or deployment-plan artifacts.
@@ -68,6 +68,14 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - [x] Policy, quota, and RBAC/IaC checks: not applicable; no Azure resources, policies, role assignments, or infrastructure are being changed.
 
 ## 7. Validation Proof
+Translated Pilates and photo update validated at `2026-10-29T09:59:46Z`.
+- `node --test tests/pilates-i18n.test.js`: all 10 tests passed, including translation completeness, unchanged numeric details, course order, and studio image metadata.
+- `node --check server.js`, `node --check public/js/i18n.js`, `node --check public/js/main.js`, and `git diff --check`: passed.
+- Azure CLI confirmed the existing subscription, Running app `olivialenssens`, expected hostnames, and `NODE|22-lts`.
+- `PORT=3196 node server.js` and HTTP checks confirmed all six locale routes return 200 with translated Pilates headings and image alt text, courses immediately after the introduction, no old session button, and both Calendly embeds. Studio photo returned 200 with JPEG content type.
+- Explicit-file ZIP packaging and `unzip -tq`: passed; approximately 433 MiB, including `media/pilates/pilates_studio.jpeg`, without local dependencies, Git metadata, tests, or deployment notes.
+- This directly served Node app has no build stage; startup/HTTP checks passed. No infrastructure, RBAC, policy, capacity, runtime, or app configuration changes are involved.
+
 Pilates update validation completed at `2026-10-29T08:59:54Z`.
 - Azure CLI `2.68.0`; `az account show` confirms the existing `bernard` subscription.
 - `az webapp show` confirms `olivialenssens` in resource group `olivia` is Running, with the expected custom and Azure hostnames; `az webapp config show` confirms `NODE|22-lts`.
@@ -88,6 +96,11 @@ Validation completed at `2026-10-06T13:55:29Z`.
 - Azure resource provisioning/policy/quota checks: not applicable; deployment targets an existing App Service and provisions no resources.
 
 ## Deployment Proof
+- Translated Pilates, reordered course options, and studio photo deployed and verified at `2026-10-29T10:05:10Z`. Deployment `6fe59c35-4706-420f-8335-fd82d87e24e6` reported `RuntimeSuccessful`, one successful instance and zero failed instances.
+- Both public hostnames returned HTTP 200 on all six language routes. Localized Pilates strings and image alt text, course placement immediately after the introduction, removal of the old session button, and both Calendly embeds were verified.
+- Root HTML, CSS/JavaScript, and studio JPEG matched local SHA-256 hashes on both hostnames. App remains Running; no Azure configuration or infrastructure was changed.
+- Production browser verification on the French route confirmed the translated heading, loaded studio image, correct course placement, and both live 45-minute Calendly calendars. No booking was submitted.
+
 - Pilates update deployed and verified at `2026-10-29T09:06:49Z` using `az webapp deploy --type zip` to `olivialenssens` in resource group `olivia`. Azure reported build successful, site started successfully, and deployment completed successfully.
 - Both `https://olivia.lenssens.net` and `https://olivialenssens.azurewebsites.net` returned HTTP 200 on all six language routes, with the Pilates navigation item, supplied prices, and both Calendly embeds.
 - Live root HTML and CSS/JavaScript assets match local SHA-256 hashes on both hostnames; portfolio media remains available. App Service state is Running.
