@@ -9,6 +9,7 @@
             'meta.keywords': 'ballet teacher Lausanne, pre-professional ballet, ballet classes Lausanne, private ballet, classical dance, ballet choreography, barre pilates, state diploma dance',
             'nav.label': 'Main navigation', 'nav.toggle': 'Toggle navigation',
             'nav.teaching': 'Teaching', 'nav.about': 'About', 'nav.credentials': 'Credentials',
+            'nav.pilates': 'Pilates',
             'nav.gallery': 'Gallery', 'nav.contact': 'Contact', 'nav.book': 'Book a Class',
             'language.label': 'Select language', 'hero.badge': 'Ballet Teacher · Lausanne, Switzerland',
             'hero.label': 'Hero', 'hero.image': 'Olivia Lenssens – classical ballet dancer and teacher',
