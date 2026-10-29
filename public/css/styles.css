@@ -513,6 +513,7 @@ img, video { max-width: 100%; height: auto; display: block; }
 #pilates { background: var(--cream-dark); }
 #pilates [id] { scroll-margin-top: 100px; }
 .pilates-header { max-width: 780px; }
+.pilates-intro-image { width: 100%; height: auto; margin-bottom: 28px; border-radius: var(--radius); }
 #pilates p { margin-bottom: 20px; }
 .pilates-block { margin-top: 64px; }
 .pilates-approach, .pilates-faq { max-width: 860px; }

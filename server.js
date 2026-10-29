@@ -42,6 +42,7 @@ function renderLocalePage(locale) {
         ['aria', 'aria-label'],
         ['alt', 'alt'],
         ['placeholder', 'placeholder'],
+        ['title', 'title'],
     ].forEach(([markerName, attributeName]) => {
         const markerAttribute = `data-i18n-${markerName}`;
         html = html.replace(/<[^>]+>/g, tag => {
