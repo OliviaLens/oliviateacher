@@ -4,18 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="meta.title">Ballet Teacher in Lausanne & Online Pilates – Olivia Lenssens</title>
     <meta name="description" data-i18n-content="meta.description"
-        content="Olivia Lenssens – Classical Ballet Teacher for pre-professional students in Lausanne. State-certified Classical Dance Teacher. Pre-professional classes, private coaching, barre & conditioning, and choreography for competitions.">
+        content="Former soloist and State-certified classical ballet teacher in Lausanne: pre-professional and private ballet classes, choreography and live online Pilates.">
     <meta name="keywords" data-i18n-content="meta.keywords"
         content="ballet teacher Lausanne, pre-professional ballet, ballet classes Lausanne, private ballet, classical dance, ballet choreography, barre pilates, state diploma dance">
-    <title data-i18n="meta.title">Olivia Lenssens – Ballet Teacher · Lausanne</title>
+    <meta name="robots" content="max-image-preview:large">
+    <meta name="theme-color" content="#432812">
 
-    <!-- Open Graph -->
-    <meta property="og:title" data-i18n-content="meta.title" content="Olivia Lenssens – Ballet Teacher · Lausanne">
-    <meta property="og:description" data-i18n-content="meta.description"
-        content="Classical ballet teacher for pre-professional students. State-certified Classical Dance Teacher (Paris). Private classes, barre & conditioning, choreography.">
-    <meta property="og:image" content="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-1024x957.jpeg">
+    <!-- Open Graph / social previews (URL, image, locale and JSON-LD are added by the server) -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Olivia Lenssens">
+    <meta property="og:title" data-i18n-content="meta.title" content="Ballet Teacher in Lausanne & Online Pilates – Olivia Lenssens">
+    <meta property="og:description" data-i18n-content="meta.description"
+        content="Former soloist and State-certified classical ballet teacher in Lausanne: pre-professional and private ballet classes, choreography and live online Pilates.">
+    <!-- seo:head -->
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,21 +76,34 @@
         </div>
     </nav>
 
+    <main id="main">
+
     <!-- ════════════════════════════════════════════
        HERO
   ════════════════════════════════════════════ -->
     <section id="hero" aria-label="Hero" data-i18n-aria="hero.label">
-        <img class="hero-image" src="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a.jpeg" srcset="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-768x718.jpeg 768w,
-              /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-1024x957.jpeg 1024w,
-              /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a.jpeg 2076w" sizes="100vw"
-              alt="Olivia Lenssens – classical ballet dancer and teacher" data-i18n-alt="hero.image"
-              loading="eager" fetchpriority="high">
+        <!-- The image covers the viewport, so on portrait screens it is ~107vh wide, not 100vw. -->
+        <picture class="hero-picture">
+            <source type="image/webp" srcset="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-768x718.webp 768w,
+                  /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-1024x957.webp 1024w,
+                  /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-1600x1496.webp 1600w,
+                  /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a.webp 2076w"
+                sizes="(max-aspect-ratio: 1/1) 107vh, 100vw">
+            <img class="hero-image" src="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a.jpeg" srcset="/portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-768x718.jpeg 768w,
+                  /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a-1024x957.jpeg 1024w,
+                  /portfolio-media/3C766CA4-F4F1-48A8-9ADF-EF603A4F8735_1_201_a.jpeg 2076w"
+                sizes="(max-aspect-ratio: 1/1) 107vh, 100vw"
+                alt="Olivia Lenssens – classical ballet dancer and teacher" data-i18n-alt="hero.image"
+                width="2076" height="1941" loading="eager" fetchpriority="high">
+        </picture>
         <div class="hero-overlay" aria-hidden="true"></div>
 
         <div class="hero-content">
             <div class="hero-badge" data-i18n="hero.badge">Ballet Teacher · Lausanne, Switzerland</div>
-            <h1 class="hero-name">Olivia<br>Lenssens</h1>
-            <p class="hero-subtitle" data-i18n="hero.subtitle">Ballet Teacher for Pre-Professional Students</p>
+            <h1 class="hero-heading">
+                <span class="hero-name">Olivia<br>Lenssens</span>
+                <span class="hero-subtitle" data-i18n="hero.subtitle">Ballet Teacher for Pre-Professional Students</span>
+            </h1>
             <p class="hero-location" data-i18n="hero.location">AFJD Lausanne &ensp;·&ensp; Dance-Studies Program</p>
             <p class="hero-diplome">Diplôme d'État de Professeur de Danse Classique · Paris</p>
 
@@ -107,19 +128,19 @@
     <div class="intro-strip" aria-label="Key figures" data-i18n-aria="stats.label">
         <div class="container reveal-stagger">
             <div class="stat-item">
-                <div class="stat-number" data-target="10" data-suffix="+">0+</div>
+                <div class="stat-number" data-target="10" data-suffix="+">10+</div>
                 <div class="stat-label" data-i18n="stats.years">Years as Professional Dancer</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" data-target="30" data-prefix="+">0</div>
+                <div class="stat-number" data-target="30" data-prefix="+">+30</div>
                 <div class="stat-label" data-i18n="stats.roles">Roles Performed</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" data-target="3">0</div>
+                <div class="stat-number" data-target="3">3</div>
                 <div class="stat-label" data-i18n="stats.companies">International Companies</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" data-target="1">0</div>
+                <div class="stat-number" data-target="1">1</div>
                 <div class="stat-label" data-i18n="stats.award">Estonian Ballet Award</div>
             </div>
         </div>
@@ -498,7 +519,7 @@
 
                         <div class="timeline-item">
                             <div class="timeline-year">2025 – Present</div>
-                            <h4>AFJD — Association pour la Formation des Jeunes Danseurs</h4>
+                            <h3>AFJD — Association pour la Formation des Jeunes Danseurs</h3>
                             <p data-i18n="cv.job1">Lausanne, Switzerland · <strong>Classical Ballet Teacher</strong> — Pre-Professional
                                 Dance-Studies Program. Structured technique classes focusing on placement, musicality,
                                 coordination, and artistry. Preparing students for performances, competitions, and
@@ -507,20 +528,20 @@
 
                         <div class="timeline-item">
                             <div class="timeline-year">2025</div>
-                            <h4>Diplôme d'État de Professeur de Danse Classique</h4>
+                            <h3>Diplôme d'État de Professeur de Danse Classique</h3>
                             <p data-i18n="cv.degree">Centre National de la Danse, Pantin · Paris, France</p>
                         </div>
 
                         <div class="timeline-item">
                             <div class="timeline-year">2025</div>
-                            <h4 data-i18n="cv.certificate">The Healthy Dancer Certificate</h4>
+                            <h3 data-i18n="cv.certificate">The Healthy Dancer Certificate</h3>
                             <p data-i18n="cv.certificateBody">Nutrition, wellness and injury prevention for dancers — issued by Rachel Fine (dietitian
                                 specialised in dance).</p>
                         </div>
 
                         <div class="timeline-item">
                             <div class="timeline-year">2019 – 2025</div>
-                            <h4 data-i18n="cv.vanemuine">Vanemuine Theatre — Soloist Dancer</h4>
+                            <h3 data-i18n="cv.vanemuine">Vanemuine Theatre — Soloist Dancer</h3>
                             <p data-i18n="cv.vanemuineBody">Tartu, Estonia. Principal roles: Juliet in <em>Romeo &amp; Juliet</em> (Petr Zuska);
                                 Maria in <em>The Nutcracker</em> (Mare Tommingas); principal roles in
                                 <em>Swan Lake</em> (Petr Zuska). Recipient of the <strong>Estonian Ballet Award
@@ -530,20 +551,20 @@
 
                         <div class="timeline-item">
                             <div class="timeline-year">2016 – 2019</div>
-                            <h4 data-i18n="cv.northBohemian">North Bohemian Theatre</h4>
+                            <h3 data-i18n="cv.northBohemian">North Bohemian Theatre</h3>
                             <p data-i18n="cv.northBohemianBody">Czech Republic. Classical and neoclassical repertoire, principal roles.</p>
                         </div>
 
                         <div class="timeline-item">
                             <div class="timeline-year">2015 – 2016</div>
-                            <h4>Alberta Ballet II</h4>
+                            <h3>Alberta Ballet II</h3>
                             <p data-i18n="cv.albertaBody">Calgary, Canada. First international engagement, classical and contemporary repertoire.
                             </p>
                         </div>
 
                         <div class="timeline-item">
                             <div class="timeline-year">2015</div>
-                            <h4>Royal Ballet School of Antwerp</h4>
+                            <h3>Royal Ballet School of Antwerp</h3>
                             <p data-i18n="cv.antwerpBody">Belgium. <strong>Diploma in Choreographic Studies</strong> — specialised training in the
                                 Vaganova method.</p>
                         </div>
@@ -808,6 +829,8 @@
         </div>
     </section>
 
+    </main>
+
     <!-- ════════════════════════════════════════════
        FOOTER
   ════════════════════════════════════════════ -->
@@ -829,6 +852,17 @@
                     &copy; <span id="year"></span> Olivia Lenssens &nbsp;·&nbsp; Lausanne
                 </p>
             </div>
+
+            <nav class="footer-languages" aria-label="Languages" data-i18n-aria="footer.languages">
+                <ul>
+                    <li><a href="/" hreflang="en" lang="en">English</a></li>
+                    <li><a href="/fr/" hreflang="fr" lang="fr">Français</a></li>
+                    <li><a href="/de/" hreflang="de" lang="de">Deutsch</a></li>
+                    <li><a href="/nl/" hreflang="nl" lang="nl">Nederlands</a></li>
+                    <li><a href="/et/" hreflang="et" lang="et">Eesti</a></li>
+                    <li><a href="/cs/" hreflang="cs" lang="cs">Čeština</a></li>
+                </ul>
+            </nav>
         </div>
     </footer>
 
@@ -867,17 +901,20 @@
         // Set copyright year
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
-    <script src="/js/i18n.js"></script>
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/main.js" defer></script>
 
     <!-- chat-app Integration sample -->
 
-    <iframe id="chatbot" src="https://chat.Not-a-bot.ai?color=432812&mode=bubble&agent=Ballet Teacher" allowfullscreen
+    <iframe id="chatbot" title="Chat assistant" data-i18n-title="chat.title" allowfullscreen
         style="position: fixed; bottom: 0; right: 0; width: 360px; height: 640px; z-index: 2147483647;" frameBorder="0"
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms" loading="eager">
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
     </iframe>
 
     <script>
+        // Load the chat app once, already with the host page URL it needs
+        // (it used to load without it first and then reload on window load).
+        document.getElementById('chatbot').src = 'https://chat.not-a-bot.ai?color=432812&mode=bubble&agent=Ballet Teacher&parentUrl=' + encodeURIComponent(window.location.href);
 
         window.addEventListener('message', (event) => {
             if (event.data?.type === 'resize' && event.data.height && event.data.width) {
@@ -905,13 +942,6 @@
                     width: window.innerWidth
                 }, '*');
             }
-        });
-
-        window.addEventListener('load', (event) => {
-            let parentUrl = window.location.href;
-            console.log('Passing the hosting parentUrl page to the chat-app: ', parentUrl);
-            let iframeUrl = 'https://chat.not-a-bot.ai?color=432812&mode=bubble&agent=Ballet Teacher&parentUrl=' + encodeURIComponent(parentUrl);
-            document.getElementById('chatbot').src = iframeUrl;
         });
 
     </script>

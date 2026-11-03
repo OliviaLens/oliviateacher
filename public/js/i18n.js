@@ -80,9 +80,12 @@
             'pilates.closing.goals': 'Build strength, refine your movement and develop a more connected relationship with your body.',
             'pilates.closing.body': 'Whether you choose the individual attention of a private session or the shared experience of a small group, Olivia looks forward to guiding your practice.',
             'pilates.closing.motto': 'Move with intention. Build strength. Find your balance.',
-            'meta.title': 'Olivia Lenssens – Ballet Teacher · Lausanne',
-            'meta.description': 'Olivia Lenssens – Classical Ballet Teacher for pre-professional students in Lausanne. State-certified Classical Dance Teacher. Pre-professional classes, private coaching, barre & conditioning, and choreography for competitions.',
+            'meta.title': 'Ballet Teacher in Lausanne & Online Pilates – Olivia Lenssens',
+            'meta.description': 'Former soloist and State-certified classical ballet teacher in Lausanne: pre-professional and private ballet classes, choreography and live online Pilates.',
             'meta.keywords': 'ballet teacher Lausanne, pre-professional ballet, ballet classes Lausanne, private ballet, classical dance, ballet choreography, barre pilates, state diploma dance',
+            'schema.jobTitle': 'Classical Ballet Teacher',
+            'footer.languages': 'Languages',
+            'chat.title': 'Chat assistant',
             'nav.label': 'Main navigation', 'nav.toggle': 'Toggle navigation',
             'nav.teaching': 'Teaching', 'nav.about': 'About', 'nav.credentials': 'Credentials',
             'nav.pilates': 'Pilates',
@@ -262,9 +265,12 @@
             'pilates.closing.goals': 'Renforcez votre corps, affinez vos mouvements et développez une relation plus consciente avec votre corps.',
             'pilates.closing.body': 'Que vous choisissiez l’attention individuelle d’une séance privée ou l’expérience partagée d’un petit groupe, Olivia se réjouit de vous accompagner.',
             'pilates.closing.motto': 'Bougez avec intention. Développez votre force. Trouvez votre équilibre.',
-            'meta.title': 'Olivia Lenssens – Professeure de ballet · Lausanne',
-            'meta.description': 'Olivia Lenssens – Professeure de ballet classique pour élèves préprofessionnels à Lausanne. Diplômée d’État en danse classique. Cours préprofessionnels et privés, barre, conditionnement physique et chorégraphie.',
+            'meta.title': 'Cours de ballet à Lausanne & Pilates en ligne – Olivia Lenssens',
+            'meta.description': 'Ancienne soliste, professeure de danse classique diplômée d’État à Lausanne : cours de ballet préprofessionnels et particuliers, chorégraphie, Pilates en ligne.',
             'meta.keywords': 'professeure de ballet Lausanne, ballet préprofessionnel, cours de ballet Lausanne, cours particuliers de ballet, danse classique, chorégraphie de ballet, barre, Pilates',
+            'schema.jobTitle': 'Professeure de danse classique',
+            'footer.languages': 'Langues',
+            'chat.title': 'Assistant de discussion',
             'nav.label': 'Navigation principale', 'nav.toggle': 'Ouvrir ou fermer la navigation',
             'nav.teaching': 'Cours', 'nav.about': 'À propos', 'nav.credentials': 'Parcours',
             'nav.gallery': 'Galerie', 'nav.contact': 'Contact', 'nav.book': 'Réserver un cours',
@@ -443,9 +449,12 @@
             'pilates.closing.goals': 'Bauen Sie Kraft auf, verfeinern Sie Ihre Bewegungen und entwickeln Sie eine bewusstere Beziehung zu Ihrem Körper.',
             'pilates.closing.body': 'Ob Sie die individuelle Betreuung einer Privatstunde oder das gemeinsame Erlebnis einer Kleingruppe wählen: Olivia freut sich darauf, Ihre Praxis zu begleiten.',
             'pilates.closing.motto': 'Bewegen Sie sich bewusst. Entwickeln Sie Kraft. Finden Sie Ihr Gleichgewicht.',
-            'meta.title': 'Olivia Lenssens – Ballettlehrerin · Lausanne',
-            'meta.description': 'Olivia Lenssens – Klassische Ballettlehrerin für angehende Tänzerinnen und Tänzer in Lausanne. Staatlich anerkannte Tanzlehrerin. Vorberufliche und private Kurse, Barre, Training und Choreografie.',
+            'meta.title': 'Ballettlehrerin in Lausanne & Online-Pilates – Olivia Lenssens',
+            'meta.description': 'Ehemalige Solistin und staatlich diplomierte Ballettlehrerin in Lausanne: vorberuflicher Ballettunterricht, Privatstunden, Choreografie und Live-Online-Pilates.',
             'meta.keywords': 'Ballettlehrerin Lausanne, vorberuflicher Ballettunterricht, Ballettstunden Lausanne, privater Ballettunterricht, klassischer Tanz, Ballettchoreografie, Barre, Pilates',
+            'schema.jobTitle': 'Klassische Ballettlehrerin',
+            'footer.languages': 'Sprachen',
+            'chat.title': 'Chat-Assistent',
             'nav.label': 'Hauptnavigation', 'nav.toggle': 'Navigation öffnen oder schließen',
             'nav.teaching': 'Unterricht', 'nav.about': 'Über mich', 'nav.credentials': 'Werdegang',
             'nav.gallery': 'Galerie', 'nav.contact': 'Kontakt', 'nav.book': 'Kurs buchen',
@@ -623,9 +632,12 @@
             'pilates.closing.goals': 'Bouw kracht op, verfijn je bewegingen en ontwikkel een bewustere band met je lichaam.',
             'pilates.closing.body': 'Of je nu kiest voor de individuele aandacht van een privéles of de gedeelde ervaring van een kleine groep, Olivia kijkt ernaar uit om je te begeleiden.',
             'pilates.closing.motto': 'Beweeg met aandacht. Bouw kracht op. Vind je balans.',
-            'meta.title': 'Olivia Lenssens – Balletdocent · Lausanne',
-            'meta.description': 'Olivia Lenssens – docent klassieke ballet voor preprofessionele dansers in Lausanne. Gediplomeerd docent klassieke dans. Preprofessionele en privélessen, barre, conditietraining en choreografie.',
+            'meta.title': 'Balletdocent in Lausanne & online pilates – Olivia Lenssens',
+            'meta.description': 'Voormalig soliste en docent klassiek ballet met Frans staatsdiploma in Lausanne: preprofessionele en privéballetlessen, choreografie en live online pilates.',
             'meta.keywords': 'balletdocent Lausanne, preprofessioneel ballet, balletlessen Lausanne, privéballet, klassieke dans, balletchoreografie, barre, Pilates',
+            'schema.jobTitle': 'Docent klassiek ballet',
+            'footer.languages': 'Talen',
+            'chat.title': 'Chatassistent',
             'nav.label': 'Hoofdnavigatie', 'nav.toggle': 'Navigatie openen of sluiten',
             'nav.teaching': 'Lessen', 'nav.about': 'Over Olivia', 'nav.credentials': 'Ervaring',
             'nav.gallery': 'Galerij', 'nav.contact': 'Contact', 'nav.book': 'Les boeken',
@@ -803,9 +815,12 @@
             'pilates.closing.goals': 'Kasvata jõudu, täiusta liikumist ja arenda teadlikumat suhet oma kehaga.',
             'pilates.closing.body': 'Vali individuaaltunni personaalne tähelepanu või väikese rühma ühine kogemus – Olivia ootab rõõmuga võimalust sinu harjutamist juhendada.',
             'pilates.closing.motto': 'Liigu teadlikult. Kasvata jõudu. Leia tasakaal.',
-            'meta.title': 'Olivia Lenssens – Balletiõpetaja · Lausanne',
-            'meta.description': 'Olivia Lenssens – klassikalise balleti õpetaja noortele tantsijatele Lausanne’is. Riiklikult tunnustatud tantsuõpetaja. Eelprofessionaalsed ja eratunnid, treening ning koreograafia.',
+            'meta.title': 'Balletiõpetaja Lausanne’is ja pilates veebis – Olivia Lenssens',
+            'meta.description': 'Endine solist ja riikliku diplomiga klassikalise balleti õpetaja Lausanne’is: eelprofessionaalsed ja eratunnid, koreograafia ning pilates veebis.',
             'meta.keywords': 'balletiõpetaja Lausanne, eelprofessionaalne ballett, balletitunnid Lausanne, balleti eratunnid, klassikaline tants, balletikoreograafia, barre, Pilates',
+            'schema.jobTitle': 'Klassikalise balleti õpetaja',
+            'footer.languages': 'Keeled',
+            'chat.title': 'Vestlusabiline',
             'nav.label': 'Põhinavigeerimine', 'nav.toggle': 'Ava või sulge menüü',
             'nav.teaching': 'Tunnid', 'nav.about': 'Minust', 'nav.credentials': 'Kogemus',
             'nav.gallery': 'Galerii', 'nav.contact': 'Kontakt', 'nav.book': 'Broneeri tund',
@@ -983,9 +998,12 @@
             'pilates.closing.goals': 'Posilujte tělo, zdokonalujte pohyb a rozvíjejte vědomější vztah ke svému tělu.',
             'pilates.closing.body': 'Ať si zvolíte individuální pozornost soukromé lekce nebo společný zážitek v malé skupině, Olivia se těší, že vás bude moci vést.',
             'pilates.closing.motto': 'Pohybujte se vědomě. Budujte sílu. Najděte rovnováhu.',
-            'meta.title': 'Olivia Lenssens – učitelka baletu · Lausanne',
-            'meta.description': 'Olivia Lenssens – učitelka klasického baletu pro mladé tanečníky v Lausanne. Státem certifikovaná učitelka tance. Předprofesionální a soukromé lekce, barre, kondiční trénink a choreografie.',
+            'meta.title': 'Učitelka baletu v Lausanne a online pilates – Olivia Lenssens',
+            'meta.description': 'Bývalá sólistka a státem certifikovaná učitelka klasického baletu v Lausanne: předprofesionální a soukromé lekce baletu, choreografie a online pilates.',
             'meta.keywords': 'učitelka baletu Lausanne, předprofesionální balet, lekce baletu Lausanne, soukromý balet, klasický tanec, baletní choreografie, barre, Pilates',
+            'schema.jobTitle': 'Učitelka klasického baletu',
+            'footer.languages': 'Jazyky',
+            'chat.title': 'Chatovací asistent',
             'nav.label': 'Hlavní navigace', 'nav.toggle': 'Otevřít nebo zavřít navigaci',
             'nav.teaching': 'Výuka', 'nav.about': 'O mně', 'nav.credentials': 'Zkušenosti',
             'nav.gallery': 'Galerie', 'nav.contact': 'Kontakt', 'nav.book': 'Rezervovat lekci',
@@ -1125,21 +1143,7 @@
         });
     }
 
-    const alternateLanguages = Object.entries(localeCodes);
-    const head = document.head;
-    alternateLanguages.forEach(([code]) => {
-        if (document.querySelector(`link[rel="alternate"][hreflang="${localeCodes[code]}"]`)) return;
-        const link = document.createElement('link');
-        link.rel = 'alternate';
-        link.hreflang = localeCodes[code];
-        link.href = code === 'en' ? '/' : `/${code}/`;
-        head.appendChild(link);
-    });
-    const xDefault = document.createElement('link');
-    xDefault.rel = 'alternate';
-    xDefault.hreflang = 'x-default';
-    xDefault.href = '/';
-    head.appendChild(xDefault);
+    // Canonical and hreflang links are rendered by the server (see seo.js).
 
     window.siteI18n = {
         locale,

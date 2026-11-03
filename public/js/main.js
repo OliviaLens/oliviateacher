@@ -300,9 +300,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ── Animated counters ── */
+    /* ── Animated counters ──
+       The HTML carries the real figures (for search engines and no-JS visitors);
+       they are reset to zero here and counted up when the strip scrolls into view. */
     let countersStarted = false;
     const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) countersStarted = true;
+    else statNumbers.forEach(el => { el.textContent = (el.dataset.prefix || '') + '0' + (el.dataset.suffix || ''); });
 
     function animateCounters() {
         if (countersStarted) return;

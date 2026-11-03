@@ -1,82 +1,81 @@
 'use strict';
 
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
-const { messages: localeMessages, localeCodes } = require('./public/js/i18n');
+const seo = require('./seo');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Compress HTML, CSS, JS, JSON and XML (brotli or gzip); photos and videos are left as they are
+app.use(compression());
 
 // Parse JSON and URL-encoded bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-function escapeHtmlAttribute(value) {
-    return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;');
+// ─────────────────────────────────────────────
+// Pages: one indexable URL per language
+//   /      English (also x-default)
+//   /fr/ /de/ /nl/ /et/ /cs/
+// Duplicates (/index.html, /en, /fr without the slash, upper case) redirect permanently.
+// ─────────────────────────────────────────────
+function queryString(req) {
+    const index = req.originalUrl.indexOf('?');
+    return index === -1 ? '' : req.originalUrl.slice(index);
 }
 
-function renderLocalePage(locale) {
-    let html = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
-    const translations = localeMessages[locale];
-    const translate = key => translations[key] || localeMessages.en[key] || key;
-
-    html = html.replace(/(<([a-z][\w:-]*)\b(?=[^>]*\bdata-i18n="([^"]+)")[^>]*>)[\s\S]*?(<\/\2>)/gi,
-        (_match, openingTag, tagName, key, closingTag) => `${openingTag}${translate(key)}${closingTag}`);
-
-    html = html.replace(/<[^>]+>/g, tag => {
-        const contentKey = tag.match(/\bdata-i18n-content="([^"]+)"/)?.[1];
-        if (!contentKey) return tag;
-        const content = escapeHtmlAttribute(translate(contentKey));
-        return tag.replace(/\bcontent="[^"]*"/, `content="${content}"`);
-    });
-
-    [
-        ['aria', 'aria-label'],
-        ['alt', 'alt'],
-        ['placeholder', 'placeholder'],
-        ['title', 'title'],
-    ].forEach(([markerName, attributeName]) => {
-        const markerAttribute = `data-i18n-${markerName}`;
-        html = html.replace(/<[^>]+>/g, tag => {
-            const key = tag.match(new RegExp(`\\b${markerAttribute}="([^"]+)"`))?.[1];
-            if (!key) return tag;
-            return tag.replace(new RegExp(`\\b${attributeName}="[^"]*"`), `${attributeName}="${escapeHtmlAttribute(translate(key))}"`);
-        });
-    });
-
-    html = html.replace('<html lang="en">', `<html lang="${localeCodes[locale]}">`);
-
-    const canonicalPath = locale === 'en' ? '/' : `/${locale}/`;
-    const alternateLinks = Object.entries(localeCodes)
-        .map(([code, language]) => `<link rel="alternate" hreflang="${language}" href="${code === 'en' ? '/' : `/${code}/`}">`)
-        .join('\n    ');
-    html = html.replace('</head>', `<link rel="canonical" href="${canonicalPath}">\n    ${alternateLinks}\n    <link rel="alternate" hreflang="x-default" href="/">\n</head>`);
-    return html;
+function sendPage(res, locale) {
+    res.set('Cache-Control', 'no-cache');
+    res.type('html').send(seo.getPage(locale));
 }
 
-// Serve translated, search-indexable HTML at each supported locale URL.
-app.get('/:locale(en|fr|de|nl|et|cs)', (req, res) => {
-    res.type('html').send(renderLocalePage(req.params.locale));
+app.get('/', (req, res) => sendPage(res, seo.DEFAULT_LOCALE));
+
+app.get(['/index.html', '/en', '/en/'], (req, res) => res.redirect(301, `/${queryString(req)}`));
+
+app.get('/:locale([a-zA-Z]{2})', (req, res, next) => {
+    const locale = req.params.locale.toLowerCase();
+    if (!seo.isLocale(locale)) return next();
+    const canonicalPath = seo.localePath(locale);
+    if (req.path !== canonicalPath) return res.redirect(301, `${canonicalPath}${queryString(req)}`);
+    sendPage(res, locale);
 });
 
+app.get('/robots.txt', (req, res) => {
+    res.set('Cache-Control', 'public, max-age=86400');
+    res.type('text/plain').send(seo.robotsTxt());
+});
+
+app.get('/sitemap.xml', (req, res) => {
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.type('application/xml').send(seo.sitemapXml());
+});
+
+// ─────────────────────────────────────────────
+// Static files
+// ─────────────────────────────────────────────
+const ONE_YEAR = 'public, max-age=31536000, immutable';
+const ONE_WEEK = 'public, max-age=604800';
+const STATIC_IMAGE = /\.(?:png|jpe?g|webp|gif|ico|svg)$/i;
+
+// CSS/JS are linked with a content hash (?v=…) by the page renderer, so those URLs never change.
+app.use(express.static(path.join(__dirname, 'public'), {
+    index: false,
+    setHeaders(res, filePath) {
+        if (res.req.query.v) res.setHeader('Cache-Control', ONE_YEAR);
+        else if (STATIC_IMAGE.test(filePath)) res.setHeader('Cache-Control', ONE_WEEK);
+    },
+}));
+
 // Serve portfolio media (photos & videos) from the previous website
-app.use(
-    '/portfolio-media',
-    express.static(
-        path.join(__dirname, './media/portfolio')
-    )
-);
+app.use('/portfolio-media', express.static(path.join(__dirname, './media/portfolio'), { maxAge: '30d' }));
 
 // Serve production-specific media folders (SwanLake, NutCracker, RomeoJuliet)
-app.use('/media', express.static(path.join(__dirname, 'media')));
+app.use('/media', express.static(path.join(__dirname, 'media'), { maxAge: '30d' }));
 
 // ─────────────────────────────────────────────
 // API: list media files in a sub-folder dynamically
@@ -180,8 +179,12 @@ ${message}
     }
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`\n✓ Olivia Lenssens – Ballet Teacher website`);
-    console.log(`  Running at http://localhost:${PORT}\n`);
-});
+// Start server (skipped when the app is imported by the tests)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`\n✓ Olivia Lenssens – Ballet Teacher website`);
+        console.log(`  Running at http://localhost:${PORT}\n`);
+    });
+}
+
+module.exports = app;
