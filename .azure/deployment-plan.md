@@ -17,7 +17,8 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - Mode: Modify/deploy an existing Azure-hosted application.
 - Component: Node.js 22 LTS / Express web application (`server.js`), with HTML/CSS/JS and media.
 - Start command: `npm start` (`node server.js`); app honors `PORT`.
-- Dependencies: `express`, `nodemailer`; lockfile is present.
+- Dependencies: `compression`, `express`, `nodemailer`; lockfile is present.
+- Runtime modules: `server.js`, `seo.js`, and `analytics.js`; server-side SEO and Google Tag Manager consent rendering require all three.
 - Build/deploy setting: `.deployment` enables `SCM_DO_BUILD_DURING_DEPLOYMENT=true`.
 - IaC/AZD: No `azure.yaml` or IaC; not needed for updating the existing target.
 - Local content size: `public/` 188 KB; `media/` approximately 423 MB.
@@ -35,7 +36,7 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 ## Recipe and architecture
 - Recipe: Azure CLI Zip Deploy to the existing Linux App Service.
 - Rationale: deploy application files without creating or replacing infrastructure; existing remote build setting can install production dependencies from `package-lock.json`.
-- Package scope: app source, package manifests, public assets, and `media/`; exclude `.git`, `node_modules`, and local-only files.
+- Package scope: `server.js`, `seo.js`, `analytics.js`, package manifests, `.deployment`, public assets including `public/js/consent.js`, and `media/`; exclude `.git`, `node_modules`, tests, and local-only files.
 - The 423 MB media directory makes upload size/time a deployment risk; measure the archive before upload and report if the package is impractical.
 
 ## Execution plan
@@ -58,7 +59,7 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - Deployment package `.azure/deploy-package.zip` contained app, package manifests, public assets, and media; excluded `.git`, `node_modules`, and `.azure`. It was removed after successful deployment.
 
 ## All validation checks pass
-- Current update: deploy all Pilates translations, the reordered course options, and the studio photo to the same existing web app; retain its subscription, runtime, configuration, and media.
+- Current update: redeploy the current application with Google Tag Manager and its multilingual Consent Mode v2 banner, preserving SEO, Pilates content, and media. Retain the existing subscription, runtime, and configuration, including the configured `GTM_ID`.
 - Current AZCLI validation: verify CLI authentication and existing target, syntax and local HTTP behavior, and deployment ZIP integrity. Infrastructure build, validate, what-if, Docker, and new-resource policy checks are not applicable to this code-only update.
 - [x] Confirm authenticated Azure CLI subscription is `bernard` and target remains `olivialenssens` in resource group `olivia`.
 - [x] Confirm the deployment ZIP contains required runtime files and is not accidentally bundling local dependencies, Git metadata, or deployment-plan artifacts.
@@ -66,8 +67,21 @@ Deploy the existing Olivia Lenssens website to the Azure App Service web app `ol
 - [x] Verify project startup/build requirements; use local HTTP startup check because this project has no build or test script.
 - [x] Container build: not applicable; the target is an existing Linux App Service and the project has no Dockerfile.
 - [x] Policy, quota, and RBAC/IaC checks: not applicable; no Azure resources, policies, role assignments, or infrastructure are being changed.
+- [x] Analytics release core validation: confirm CLI authentication, the existing target and analytics toggle; run all tests, syntax checks, HTTP startup checks, and deployment ZIP integrity checks.
+- [x] Analytics release build verification: confirm directly served Node application starts and all locale/SEO routes work; no separate build stage exists.
+- [x] Analytics release container, policy, and static RBAC checks: no Dockerfile, IaC, provisioning, runtime changes, or access-assignment changes apply.
 
 ## 7. Validation Proof
+Google Tag Manager and consent release validated at `2026-11-04T15:31:25Z`.
+- `npm test`: all 69 tests passed, including analytics disabled/enabled rendering, all consent translations, default consent, stored choices, SEO endpoints, canonical redirects, compression, and cache behavior.
+- `node --check` passed for `server.js`, `seo.js`, `analytics.js`, and `public/js/main.js`, `public/js/i18n.js`, `public/js/consent.js`; `git diff --check` passed.
+- Local HTTP startup with the existing production `GTM_ID` confirmed all six language routes return 200 with the configured container, translated consent banner, and versioned consent script. Inline consent execution confirmed analytics and advertising consent defaults are denied.
+- Azure CLI confirmed subscription `bernard`, app `olivialenssens`, resource group `olivia`, West Europe, Running state, and `NODE|22-lts`. Both public hostnames returned HTTP 200 before deployment.
+- Existing app configuration already includes a valid `GTM_ID`; this release preserves it. `.deployment` requests remote dependency installation. No Azure settings were changed.
+- Explicit-file ZIP and `unzip -tq` passed: 57 files, approximately 422.8 MiB, including `analytics.js`, `seo.js`, and `public/js/consent.js`. Every archived file matches its local SHA-256; dependencies, Git metadata, tests, local notes, and `.DS_Store` are excluded.
+- Archive SHA-256: `09001d9b487f7831a575bc410f0ab073f12eeafcd0ab8d3d77268ae048532b95`.
+- No build stage, container, infrastructure, policy, quota, or static RBAC changes apply to this existing-app code-only redeployment.
+
 Translated Pilates and photo update validated at `2026-10-29T09:59:46Z`.
 - `node --test tests/pilates-i18n.test.js`: all 10 tests passed, including translation completeness, unchanged numeric details, course order, and studio image metadata.
 - `node --check server.js`, `node --check public/js/i18n.js`, `node --check public/js/main.js`, and `git diff --check`: passed.
@@ -96,6 +110,12 @@ Validation completed at `2026-10-06T13:55:29Z`.
 - Azure resource provisioning/policy/quota checks: not applicable; deployment targets an existing App Service and provisions no resources.
 
 ## Deployment Proof
+- Google Tag Manager and consent release redeployed and verified at `2026-11-04T15:37:41Z`. Deployment `96a28a44-b8af-404b-ae7d-9aeb77ca85bf` reported `RuntimeSuccessful`, one successful instance, zero failed instances, and no deployment errors.
+- Used `az webapp deploy --type zip --clean false` against the existing, explicitly specified subscription, app, and resource group. No infrastructure, runtime, app settings, or access assignments were changed; the existing `GTM_ID` is preserved.
+- Both `https://olivia.lenssens.net` and `https://olivialenssens.azurewebsites.net` passed 23 endpoint checks each. All six localized HTML responses and seven CSS/JavaScript/image responses matched the current local release's SHA-256 hashes, including the consent script.
+- Verified the configured GTM container, translated consent banners, denied-by-default analytics and advertising consent before container loading, valid structured data, canonical URLs/redirects, robots.txt, all six sitemap URLs, compression, cache headers, gallery API, media, and unknown-locale 404.
+- App Service remains Running in West Europe on `NODE|22-lts`. Live RBAC verification is not applicable: no Azure resources or access assignments were provisioned or changed. The temporary deployment ZIP was removed after verification.
+
 - Translated Pilates, reordered course options, and studio photo deployed and verified at `2026-10-29T10:05:10Z`. Deployment `6fe59c35-4706-420f-8335-fd82d87e24e6` reported `RuntimeSuccessful`, one successful instance and zero failed instances.
 - Both public hostnames returned HTTP 200 on all six language routes. Localized Pilates strings and image alt text, course placement immediately after the introduction, removal of the old session button, and both Calendly embeds were verified.
 - Root HTML, CSS/JavaScript, and studio JPEG matched local SHA-256 hashes on both hostnames. App remains Running; no Azure configuration or infrastructure was changed.
