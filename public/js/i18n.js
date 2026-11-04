@@ -185,7 +185,15 @@
             'gallery.romeoLabel': 'Romeo & Juliette – click to browse photos and videos',
             'gallery.romeoAlt': 'Olivia Lenssens as Juliet in Romeo & Juliet, Vanemuine Theatre',
             'gallery.romeoCard': 'Romeo & Juliette · Vanemuine',
-            'gallery.photos': 'photos', 'gallery.videos': 'videos'
+            'gallery.photos': 'photos', 'gallery.videos': 'videos',
+            'consent.title': 'Cookies and privacy',
+            'consent.body': 'With your consent, this site uses cookies to measure visits (statistics) and the effectiveness of advertising (marketing). You can change your choice at any time under “Cookie settings” at the bottom of the page.',
+            'consent.accept': 'Accept all', 'consent.reject': 'Reject all',
+            'consent.customize': 'Customise', 'consent.save': 'Save my choices',
+            'consent.necessary': 'Necessary', 'consent.necessaryText': 'Remember your choice. Always on.',
+            'consent.analytics': 'Statistics', 'consent.analyticsText': 'Count visits and show how the site is used.',
+            'consent.marketing': 'Marketing', 'consent.marketingText': 'Measure and personalise advertising.',
+            'consent.settings': 'Cookie settings'
         },
         fr: {
             'pilates.image': 'Olivia pratiquant le Pilates sur un tapis dans un studio',
@@ -369,7 +377,15 @@
             'gallery.romeoAlt': 'Olivia Lenssens dans le rôle de Juliette, Vanemuine Theatre',
             'gallery.romeoCard': 'Roméo et Juliette · Vanemuine',
             'footer.cv': 'CV', 'gallery.browse': 'cliquer pour voir les photos et vidéos',
-            'gallery.photos': 'photos', 'gallery.videos': 'vidéos'
+            'gallery.photos': 'photos', 'gallery.videos': 'vidéos',
+            'consent.title': 'Cookies et confidentialité',
+            'consent.body': 'Avec votre accord, ce site utilise des cookies pour mesurer sa fréquentation (statistiques) et l’efficacité de ses publicités (marketing). Vous pouvez modifier votre choix à tout moment via « Paramètres des cookies » en bas de page.',
+            'consent.accept': 'Tout accepter', 'consent.reject': 'Tout refuser',
+            'consent.customize': 'Personnaliser', 'consent.save': 'Enregistrer mes choix',
+            'consent.necessary': 'Nécessaires', 'consent.necessaryText': 'Mémorisent votre choix. Toujours actifs.',
+            'consent.analytics': 'Statistiques', 'consent.analyticsText': 'Comptent les visites et montrent comment le site est utilisé.',
+            'consent.marketing': 'Marketing', 'consent.marketingText': 'Mesurent et personnalisent la publicité.',
+            'consent.settings': 'Paramètres des cookies'
         },
         de: {
             'pilates.image': 'Olivia beim Pilates auf einer Matte im Studio',
@@ -552,7 +568,15 @@
             'gallery.romeoAlt': 'Olivia Lenssens als Julia, Vanemuine Theatre',
             'gallery.romeoCard': 'Romeo und Julia · Vanemuine',
             'footer.cv': 'CV', 'gallery.browse': 'klicken, um Fotos und Videos anzusehen',
-            'gallery.photos': 'Fotos', 'gallery.videos': 'Videos'
+            'gallery.photos': 'Fotos', 'gallery.videos': 'Videos',
+            'consent.title': 'Cookies und Datenschutz',
+            'consent.body': 'Mit Ihrer Einwilligung verwendet diese Website Cookies, um die Besuche (Statistik) und die Wirksamkeit von Werbung (Marketing) zu messen. Sie können Ihre Auswahl jederzeit unter „Cookie-Einstellungen“ unten auf der Seite ändern.',
+            'consent.accept': 'Alle akzeptieren', 'consent.reject': 'Alle ablehnen',
+            'consent.customize': 'Anpassen', 'consent.save': 'Auswahl speichern',
+            'consent.necessary': 'Notwendig', 'consent.necessaryText': 'Speichern Ihre Auswahl. Immer aktiv.',
+            'consent.analytics': 'Statistik', 'consent.analyticsText': 'Zählen Besuche und zeigen, wie die Website genutzt wird.',
+            'consent.marketing': 'Marketing', 'consent.marketingText': 'Messen und personalisieren Werbung.',
+            'consent.settings': 'Cookie-Einstellungen'
         },
         nl: {
             'pilates.image': 'Olivia doet pilates op een mat in een studio',
@@ -735,7 +759,15 @@
             'gallery.romeoAlt': 'Olivia Lenssens als Julia, Vanemuine Theatre',
             'gallery.romeoCard': 'Romeo en Julia · Vanemuine',
             'footer.cv': 'CV', 'gallery.browse': 'klik om foto’s en video’s te bekijken',
-            'gallery.photos': 'foto’s', 'gallery.videos': 'video’s'
+            'gallery.photos': 'foto’s', 'gallery.videos': 'video’s',
+            'consent.title': 'Cookies en privacy',
+            'consent.body': 'Met je toestemming gebruikt deze site cookies om het bezoek (statistieken) en de doeltreffendheid van advertenties (marketing) te meten. Je kunt je keuze altijd wijzigen via “Cookie-instellingen” onderaan de pagina.',
+            'consent.accept': 'Alles accepteren', 'consent.reject': 'Alles weigeren',
+            'consent.customize': 'Aanpassen', 'consent.save': 'Mijn keuze opslaan',
+            'consent.necessary': 'Noodzakelijk', 'consent.necessaryText': 'Onthouden je keuze. Altijd actief.',
+            'consent.analytics': 'Statistieken', 'consent.analyticsText': 'Tellen bezoeken en tonen hoe de site gebruikt wordt.',
+            'consent.marketing': 'Marketing', 'consent.marketingText': 'Meten en personaliseren advertenties.',
+            'consent.settings': 'Cookie-instellingen'
         },
         et: {
             'pilates.image': 'Olivia harjutab stuudios matil pilatest',
@@ -918,7 +950,15 @@
             'gallery.romeoAlt': 'Olivia Lenssens Julia rollis, Vanemuise teater',
             'gallery.romeoCard': 'Romeo ja Julia · Vanemuine',
             'footer.cv': 'CV', 'gallery.browse': 'klõpsa fotode ja videote vaatamiseks',
-            'gallery.photos': 'fotot', 'gallery.videos': 'videot'
+            'gallery.photos': 'fotot', 'gallery.videos': 'videot',
+            'consent.title': 'Küpsised ja privaatsus',
+            'consent.body': 'Sinu nõusolekul kasutab see veebileht küpsiseid, et mõõta külastatavust (statistika) ja reklaamide tõhusust (turundus). Saad oma valikut igal ajal muuta lehe allosas oleva lingi „Küpsiste seaded“ kaudu.',
+            'consent.accept': 'Nõustu kõigiga', 'consent.reject': 'Keeldu kõigist',
+            'consent.customize': 'Kohanda', 'consent.save': 'Salvesta valik',
+            'consent.necessary': 'Vajalikud', 'consent.necessaryText': 'Jätavad sinu valiku meelde. Alati sees.',
+            'consent.analytics': 'Statistika', 'consent.analyticsText': 'Loendavad külastusi ja näitavad, kuidas veebilehte kasutatakse.',
+            'consent.marketing': 'Turundus', 'consent.marketingText': 'Mõõdavad ja isikupärastavad reklaame.',
+            'consent.settings': 'Küpsiste seaded'
         },
         cs: {
             'pilates.image': 'Olivia cvičí pilates na podložce ve studiu',
@@ -1101,7 +1141,15 @@
             'gallery.romeoAlt': 'Olivia Lenssens jako Julie, divadlo Vanemuine',
             'gallery.romeoCard': 'Romeo a Julie · Vanemuine',
             'footer.cv': 'CV', 'gallery.browse': 'kliknutím zobrazíte fotografie a videa',
-            'gallery.photos': 'fotografií', 'gallery.videos': 'videí'
+            'gallery.photos': 'fotografií', 'gallery.videos': 'videí',
+            'consent.title': 'Cookies a soukromí',
+            'consent.body': 'S vaším souhlasem používá tento web cookies k měření návštěvnosti (statistika) a účinnosti reklamy (marketing). Svou volbu můžete kdykoli změnit odkazem „Nastavení cookies“ v zápatí stránky.',
+            'consent.accept': 'Přijmout vše', 'consent.reject': 'Odmítnout vše',
+            'consent.customize': 'Přizpůsobit', 'consent.save': 'Uložit volbu',
+            'consent.necessary': 'Nezbytné', 'consent.necessaryText': 'Pamatují si vaši volbu. Vždy aktivní.',
+            'consent.analytics': 'Statistika', 'consent.analyticsText': 'Počítají návštěvy a ukazují, jak se web používá.',
+            'consent.marketing': 'Marketing', 'consent.marketingText': 'Měří a přizpůsobují reklamu.',
+            'consent.settings': 'Nastavení cookies'
         }
     };
 

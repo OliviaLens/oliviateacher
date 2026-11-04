@@ -13,6 +13,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { messages, localeCodes } = require('./public/js/i18n');
+const analytics = require('./analytics');
 
 const SITE_URL = (process.env.SITE_URL || 'https://olivia.lenssens.net').replace(/\/+$/, '');
 const SITE_NAME = 'Olivia Lenssens';
@@ -27,7 +28,7 @@ const ROOT = __dirname;
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const MEDIA_DIR = path.join(ROOT, 'media');
 const TEMPLATE_PATH = path.join(PUBLIC_DIR, 'index.html');
-const VERSIONED_ASSETS = ['/css/styles.css', '/js/i18n.js', '/js/main.js'];
+const VERSIONED_ASSETS = ['/css/styles.css', '/js/i18n.js', '/js/main.js', '/js/consent.js'];
 const IMAGE_EXT = /\.(jpe?g|png|gif|webp)$/i;
 
 const SHARE_IMAGE = { path: '/images/og-olivia-lenssens.jpg', width: 1200, height: 630 };
@@ -260,7 +261,7 @@ function headTags(locale, template) {
     ].join('\n    ');
 }
 
-function renderPage(locale) {
+function renderPage(locale, { gtmId = analytics.GTM_ID } = {}) {
     const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
     let html = translateTemplate(template, locale);
 
@@ -273,9 +274,12 @@ function renderPage(locale) {
     html = html.replace(`<a href="${localePath(locale)}" hreflang="${locale}"`, `<a href="${localePath(locale)}" hreflang="${locale}" aria-current="page"`);
 
     const tags = headTags(locale, template);
-    return html.includes('<!-- seo:head -->')
+    html = html.includes('<!-- seo:head -->')
         ? html.replace('<!-- seo:head -->', tags)
         : html.replace('</head>', `    ${tags}\n</head>`);
+
+    // Google Tag Manager, consent defaults and the cookie banner (only when GTM_ID is set).
+    return analytics.applyTagManager(html, locale, gtmId);
 }
 
 // Rendered pages are cached until the template or one of the versioned assets changes.

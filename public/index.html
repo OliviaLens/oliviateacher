@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- gtm:head (consent defaults + Google Tag Manager, added by the server when GTM_ID is set; see analytics.js) -->
     <title data-i18n="meta.title">Ballet Teacher in Lausanne & Online Pilates – Olivia Lenssens</title>
     <meta name="description" data-i18n-content="meta.description"
         content="Former soloist and State-certified classical ballet teacher in Lausanne: pre-professional and private ballet classes, choreography and live online Pilates.">
@@ -294,7 +295,7 @@
                         <p data-i18n="pilates.private.package">Package of 10 sessions: <strong>CHF 500</strong> (CHF 50 per session)</p>
                         <details class="pilates-booking" id="pilates-private-booking">
                             <summary data-i18n="pilates.private.book">Book a private session</summary>
-                            <iframe src="https://calendly.com/olivia-lenssens/30min?embed_type=Inline"
+                            <iframe src="https://calendly.com/olivia-lenssens/30min?embed_type=Inline&amp;embed_domain=olivia.lenssens.net"
                                 title="Book a private online Pilates session with Olivia on Calendly"
                                 data-i18n-title="pilates.private.calendar"
                                 loading="lazy"></iframe>
@@ -321,7 +322,7 @@
                         <p data-i18n="pilates.group.package">Package of 10 sessions: <strong>CHF 200 per person</strong> (CHF 20 per session)</p>
                         <details class="pilates-booking" id="pilates-group-booking">
                             <summary data-i18n="pilates.group.book">Join a group class</summary>
-                            <iframe src="https://calendly.com/olivia-lenssens/pilates-45min-small-group-class?embed_type=Inline"
+                            <iframe src="https://calendly.com/olivia-lenssens/pilates-45min-small-group-class?embed_type=Inline&amp;embed_domain=olivia.lenssens.net"
                                 title="Book a small-group online Pilates class with Olivia on Calendly"
                                 data-i18n-title="pilates.group.calendar"
                                 loading="lazy"></iframe>
@@ -846,6 +847,9 @@
                     <li><a href="#credentials" data-i18n="footer.cv">CV</a></li>
                     <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
                     <li><a href="mailto:Olivia.Lenssens@gmail.com" data-i18n="nav.contact">Contact</a></li>
+                    <!-- consent:start -->
+                    <li><button type="button" class="footer-consent" data-consent-open aria-controls="consentBanner" data-i18n="consent.settings">Cookie settings</button></li>
+                    <!-- consent:end -->
                 </ul>
 
                 <p class="footer-copyright">
@@ -945,6 +949,42 @@
         });
 
     </script>
+
+    <!-- consent:start -->
+    <!-- ════════════════════════════════════════════
+       COOKIE CONSENT — rendered only when Google Tag Manager is on (GTM_ID, see analytics.js).
+       Last in the page so it sits above the chat widget.
+  ════════════════════════════════════════════ -->
+    <section id="consentBanner" class="consent" aria-labelledby="consentTitle" tabindex="-1">
+        <p id="consentTitle" class="consent-title" data-i18n="consent.title">Cookies and privacy</p>
+        <p class="consent-text" data-i18n="consent.body">With your consent, this site uses cookies to measure visits (statistics) and the effectiveness of advertising (marketing). You can change your choice at any time under “Cookie settings” at the bottom of the page.</p>
+        <div id="consentOptions" class="consent-options" hidden>
+            <label class="consent-option">
+                <input type="checkbox" checked disabled>
+                <strong data-i18n="consent.necessary">Necessary</strong>
+                <small data-i18n="consent.necessaryText">Remember your choice. Always on.</small>
+            </label>
+            <label class="consent-option">
+                <input type="checkbox" id="consentAnalytics">
+                <strong data-i18n="consent.analytics">Statistics</strong>
+                <small data-i18n="consent.analyticsText">Count visits and show how the site is used.</small>
+            </label>
+            <label class="consent-option">
+                <input type="checkbox" id="consentMarketing">
+                <strong data-i18n="consent.marketing">Marketing</strong>
+                <small data-i18n="consent.marketingText">Measure and personalise advertising.</small>
+            </label>
+        </div>
+        <div class="consent-actions">
+            <button type="button" class="btn" data-consent-action="reject" data-i18n="consent.reject">Reject all</button>
+            <button type="button" class="btn" data-consent-action="accept" data-i18n="consent.accept">Accept all</button>
+            <button type="button" class="btn" data-consent-action="save" data-i18n="consent.save" hidden>Save my choices</button>
+            <button type="button" class="consent-more" data-consent-action="customize" aria-controls="consentOptions"
+                aria-expanded="false" data-i18n="consent.customize">Customise</button>
+        </div>
+    </section>
+    <script src="/js/consent.js" defer></script>
+    <!-- consent:end -->
 
 </body>
 

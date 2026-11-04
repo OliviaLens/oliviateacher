@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const seo = require('./seo');
+const analytics = require('./analytics');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -183,7 +184,8 @@ ${message}
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`\n✓ Olivia Lenssens – Ballet Teacher website`);
-        console.log(`  Running at http://localhost:${PORT}\n`);
+        console.log(`  Running at http://localhost:${PORT}`);
+        console.log(`  Google Tag Manager: ${analytics.GTM_ID || 'off (set GTM_ID to switch it on)'}\n`);
     });
 }
 

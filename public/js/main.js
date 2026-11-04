@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const i18n = window.siteI18n;
     const t = (key) => i18n ? i18n.translate(key) : key;
 
+    /* ── Events for Google Tag Manager ──
+       Pushed to window.dataLayer; without Tag Manager they simply stay in the array.
+       Never put personal data (name, email, phone, message) in these. */
+    const track = (event, params = {}) => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event, ...params });
+    };
+
     /* ── Navbar scroll behaviour ── */
     const navbar = document.getElementById('navbar');
     const onScroll = () => {
@@ -235,7 +243,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         item.addEventListener('click', () => {
-            if (files.length) openCarousel(files, title, 0);
+            if (!files.length) return;
+            openCarousel(files, title, 0);
+            track('gallery_open', { gallery_name: folder });
         });
         item.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
@@ -284,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.success) {
                     statusEl.textContent = t('form.success');
                     statusEl.className = 'form-status success';
+                    track('generate_lead', { lead_source: 'contact_form', lead_service: data.service || 'not specified' });
                     form.reset();
                 } else {
                     throw new Error(result.error || 'Unknown error');
@@ -299,6 +310,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    /* ── Pilates booking (Calendly) ──
+       Opening a booking panel, then picking a time and confirming in Calendly. Calendly posts the
+       last two to this page because the iframes carry embed_type and embed_domain. */
+    const bookingPanels = [...document.querySelectorAll('details.pilates-booking')];
+    const bookingType = (panel) => panel ? panel.id.replace(/-booking$/, '').replace(/-/g, '_') : 'unknown';
+
+    bookingPanels.forEach((panel) => {
+        panel.addEventListener('toggle', () => {
+            if (panel.open) track('booking_open', { booking_type: bookingType(panel) });
+        });
+    });
+
+    const calendlyEvents = new Map([
+        ['calendly.date_and_time_selected', 'booking_time_selected'],
+        ['calendly.event_scheduled', 'booking_scheduled'],
+    ]);
+    window.addEventListener('message', (event) => {
+        if (event.origin !== 'https://calendly.com' || !calendlyEvents.has(event.data?.event)) return;
+        const panel = bookingPanels.find((details) => details.querySelector('iframe')?.contentWindow === event.source);
+        track(calendlyEvents.get(event.data.event), { booking_type: bookingType(panel) });
+    });
 
     /* ── Animated counters ──
        The HTML carries the real figures (for search engines and no-JS visitors);
