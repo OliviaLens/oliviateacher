@@ -1,0 +1,105 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: azure-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_WEBAPP_NAME: olivialenssens
+      AZURE_RESOURCE_GROUP: olivia
+
+    steps:
+      - name: Check Azure authentication configuration
+        shell: bash
+        run: |
+          : "${AZURE_CLIENT_ID:?Set the AZURE_CLIENT_ID repository Actions variable; see README.md}"
+          : "${AZURE_TENANT_ID:?Set the AZURE_TENANT_ID repository Actions variable; see README.md}"
+          : "${AZURE_SUBSCRIPTION_ID:?Set the AZURE_SUBSCRIPTION_ID repository Actions variable; see README.md}"
+
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies and run tests
+        run: |
+          npm ci
+          npm test
+
+      - name: Package application
+        run: |
+          zip -q -r "$RUNNER_TEMP/oliviateacher.zip" \
+            server.js seo.js analytics.js package.json package-lock.json .deployment \
+            public media -x '*/.DS_Store'
+          unzip -tq "$RUNNER_TEMP/oliviateacher.zip"
+
+      - name: Sign in to Azure with OIDC
+        uses: azure/login@8216e11d8cd9b42fe925c852af8e76311ff067ac # v2
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to existing App Service
+        run: |
+          az webapp deploy \
+            --subscription "$AZURE_SUBSCRIPTION_ID" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --name "$AZURE_WEBAPP_NAME" \
+            --src-path "$RUNNER_TEMP/oliviateacher.zip" \
+            --type zip \
+            --clean false \
+            --async false \
+            --track-status true \
+            --timeout 1800000
+
+      - name: Verify live pages and deployed assets
+        shell: bash
+        run: |
+          for base in https://olivialenssens.azurewebsites.net https://olivia.lenssens.net; do
+            for locale in en fr de nl et cs; do
+              route="/$locale/"
+              if [[ "$locale" == en ]]; then route="/"; fi
+              curl --fail --silent --show-error --retry 8 --retry-all-errors \
+                --retry-delay 10 --max-time 30 "$base$route" \
+                --output "$RUNNER_TEMP/page.html"
+              language=$(node -p "require('./public/js/i18n').localeCodes['$locale']")
+              grep -Fq "<html lang=\"$language\">" "$RUNNER_TEMP/page.html"
+            done
+
+            for asset in css/styles.css js/main.js js/i18n.js js/consent.js; do
+              curl --fail --silent --show-error --retry 8 --retry-all-errors \
+                --retry-delay 10 --max-time 30 "$base/$asset?deployment=$GITHUB_SHA" \
+                --output "$RUNNER_TEMP/asset"
+              cmp "public/$asset" "$RUNNER_TEMP/asset"
+            done
+          done
+          {
+            echo '### Deployment verified'
+            echo "- Commit: $GITHUB_SHA"
+            echo '- Website: https://olivia.lenssens.net'
+            echo '- App Service: https://olivialenssens.azurewebsites.net'
+          } >> "$GITHUB_STEP_SUMMARY"
