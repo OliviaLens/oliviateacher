@@ -22,7 +22,7 @@ test('course options replace the session button immediately after the introducti
     assert.doesNotMatch(section, /data-i18n="pilates.choose"/);
     assert.equal((section.match(/id="pilates-courses"/g) || []).length, 1);
     assert.equal((section.match(/class="pilates-course"/g) || []).length, 2);
-    assert.equal((section.match(/<iframe /g) || []).length, 2);
+    assert.equal((section.match(/<iframe\s/g) || []).length, 2);
     assert.ok(section.indexOf('id="pilates-courses"') < section.indexOf('data-i18n="pilates.benefits.title"'));
 });
 
@@ -38,7 +38,7 @@ test('English fallback content matches the translation dictionary', () => {
 test('studio image is in the introduction with dimensions and translated alt text', () => {
     const header = section.match(/<header\b[\s\S]*?<\/header>/)[0];
     assert.match(header, /src="\/media\/pilates\/pilates_studio.jpeg"/);
-    assert.match(header, /width="1082" height="586"/);
+    assert.match(header, /width="1082"\s+height="586"/);
     assert.match(header, /data-i18n-alt="pilates.image"/);
     assert.ok(header.includes(`alt="${messages.en['pilates.image']}"`));
     assert.ok(fs.existsSync(path.join(__dirname, '../media/pilates/pilates_studio.jpeg')));

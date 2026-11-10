@@ -84,7 +84,7 @@ for (const locale of LOCALES) {
         for (const key of CONSENT_KEYS.filter(key => key !== 'consent.settings')) {
             assert.match(html, new RegExp(`data-i18n="${key.replace('.', '\\.')}"[^>]*>${t[key].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<`), key);
         }
-        assert.ok(html.includes(`data-consent-open aria-controls="consentBanner" data-i18n="consent.settings">${t['consent.settings']}</button>`));
+        assert.match(html, new RegExp(`data-consent-open\\s+aria-controls="consentBanner"\\s+data-i18n="consent.settings">${t['consent.settings'].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</button>`));
         assert.ok(t['consent.body'].includes(t['consent.settings']), 'the banner names the footer link the visitor will see');
         assert.match(html, /<script src="\/js\/consent\.js\?v=[0-9a-f]{10}" defer><\/script>/);
         assert.ok(html.indexOf('id="chatbot"') < html.indexOf('id="consentBanner"'), 'banner comes after the chat widget');
@@ -160,7 +160,7 @@ test('expired, outdated, malformed or look-alike cookies ask again', () => {
 
 test('Calendly embeds can report bookings to the page', () => {
     const html = fs.readFileSync(path.join(ROOT, 'public/index.html'), 'utf8');
-    const frames = [...html.matchAll(/<iframe src="(https:\/\/calendly\.com\/[^"]+)"/g)].map(m => new URL(m[1].replace(/&amp;/g, '&')));
+    const frames = [...html.matchAll(/<iframe\s+src="(https:\/\/calendly\.com\/[^"]+)"/g)].map(m => new URL(m[1].replace(/&amp;/g, '&')));
     assert.equal(frames.length, 2);
     for (const url of frames) {
         assert.equal(url.searchParams.get('embed_type'), 'Inline');

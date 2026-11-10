@@ -13,6 +13,7 @@ const ROOT = path.join(__dirname, '..');
 const LOCALES = Object.keys(localeCodes);
 const pageUrl = locale => `${seo.SITE_URL}${seo.localePath(locale)}`;
 const attr = value => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const fileForUrl = url => {
     const urlPath = decodeURI(new URL(url, seo.SITE_URL).pathname);
     if (urlPath.startsWith('/portfolio-media/')) return path.join(ROOT, 'media/portfolio', urlPath.slice('/portfolio-media/'.length));
@@ -59,7 +60,7 @@ for (const locale of LOCALES) {
         const t = messages[locale];
         assert.ok(html.includes(`<title data-i18n="meta.title">${t['meta.title']}</title>`));
         assert.ok(html.includes(`content="${attr(t['meta.description'])}"`), 'meta description');
-        assert.ok(html.includes(`<meta property="og:title" data-i18n-content="meta.title" content="${attr(t['meta.title'])}">`));
+        assert.match(html, new RegExp(`<meta\\s+property="og:title"\\s+data-i18n-content="meta.title"\\s+content="${escapeRegExp(attr(t['meta.title']))}">`));
         // Regression: the translation used to land in the data-i18n-content marker instead of content.
         assert.doesNotMatch(html, /data-i18n-content="(?!meta\.)/);
         assert.ok(t['meta.title'].length <= 65, `title length ${t['meta.title'].length}`);
